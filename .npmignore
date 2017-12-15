@@ -1,0 +1,10 @@
+.vscode/
+tslint.json
+tsconfig.json
+test/
+*.test.js
+*.test.js.map
+*.test.d.ts
+src/
+script/
+lib/test/
