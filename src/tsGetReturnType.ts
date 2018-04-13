@@ -3,6 +3,7 @@
  */
 export default function tsGetReturnType<T>(
   _function: (...args: any[]) => T,
+  arg?: any,
 ): T {
-  return null as any as T
+  return arg as any as T
 }
