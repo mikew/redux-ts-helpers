@@ -13,6 +13,8 @@ describe('tsGetReturnType', () => {
       type.foo
     // tslint:disable-next-line:no-empty
     } catch (err) { }
+
+    assert.strictEqual(type, asyncFunction)
   })
 
   it('lets you supply an argument that is returned and cast', () => {
