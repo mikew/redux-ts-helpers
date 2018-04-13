@@ -114,12 +114,11 @@ export default createReducer(initialState, {
   },
 
   [actions.constants.setIncrementBy]: (state, action) => {
-    const returnType = tsGetReturnType(actions.constants.setIncrementBy)
-    const actionTyped = action as typeof returnType
+    const actionTyped = tsGetReturnType(actions.setIncrementBy, action)
 
     return {
       ...state,
-      incrementBy: actionTyped.incrementBy,
+      incrementBy: actionTyped.payload,
     }
   },
 })
@@ -167,3 +166,42 @@ export const reducer: Reducer<State> = (state = initialState, action) => {
   </tr>
 
 </table>
+
+## Utils
+
+### tsGetReturnType(fn, arg?)
+
+> Note: TypeScript 2.8 has direct support for this via `ReturnType`.
+
+`tsGetReturnType` can get the return type of a function. You can also pass a
+second argument and it will be cast to the return type:
+
+```typescript
+function example() {
+  return { foo: 'bar' }
+}
+
+const returnType = tsGetReturnType(example)
+const typed = foo as typeof returnType
+typed.foo // 'string'
+
+// or ...
+
+const typed = tsGetReturnType(example, foo)
+typed.foo // 'string'
+```
+
+### tsGetPromiseType(promise, arg?)
+
+`tsGetPromiseType` can get the resolved type of a Promise. It's useful when
+using an async redux library, when you have access to something that is
+`Promise<T>` and you just want to know `T`.
+
+```typescript
+async function example() {
+  return { foo: 'bar' }
+}
+
+const typed = tsGetPromiseType(example)
+typed.foo // 'string'
+```
