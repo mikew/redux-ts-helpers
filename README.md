@@ -83,7 +83,8 @@ export const setIncrementBy: ActionCreator<SetIncrementBy> = (n: number) => ({
 
 ### Reducers
 
-`createReducer` builds a reducer for you. No more switch statements, you pass it an object.
+`createReducer` builds a reducer for you. No more switch statements, you pass
+it an object.
 
 Use `tsGetReturnType` and `typeof` to get the type of a function's return
 value without having to know the interface beforehand.
@@ -168,6 +169,55 @@ export const reducer: Reducer<State> = (state = initialState, action) => {
 </table>
 
 ## Utils
+
+### PromiseType<T>
+
+Like `ReturnType` from TypeScript, this will get you the `T` in `Promise<T>`:
+
+```typescript
+const promise = Promise.resolve('hello world')
+const typed = foo as PromiseType<Promise<string>>
+// string
+```
+
+### AsyncReturnType<T>
+
+Like `ReturnType` and `PromiseType` combined, this gets `T` in `(...args:
+any[]) => Promise<T>`:
+
+```typescript
+async function someApiCall() {
+  return 'hello world'
+}
+
+const typed = foo as AsyncReturnType<typeof someApiCall>
+// string
+```
+
+---
+
+Having `ReturnType`, `AsyncReturnType`, and `PromiseType` at the type-system
+level is nice because it adds no overhead. These functional helpers below
+were added before [TypeScript gained the `infer`
+keyword](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types)
+and should generally be avoided.
+
+### tsGetAsyncReturnType(fn, arg?)
+
+`tsGetAsyncReturnType` can get the return type of an async function. You can also pass a second argument and it will be cast to the async return type:
+
+```typescript
+async function example() {
+  return { foo: 'bar' }
+}
+
+const asyncReturnType = tsGetAsyncReturnType(example)
+const typed = foo as typeof asyncReturnType
+
+// or ...
+
+const typed = tsGetAsyncReturnType(example, foo)
+```
 
 ### tsGetReturnType(fn, arg?)
 
