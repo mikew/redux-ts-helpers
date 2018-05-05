@@ -22,13 +22,13 @@ describe('createReducer', () => {
     })
 
     let currentState = undefined as any
-    currentState = reducer!(currentState, { type: '' })
+    currentState = reducer(currentState, { type: '', payload: '' })
 
     assert.deepStrictEqual(currentState, {
       incrementBy: 1,
     })
 
-    currentState = reducer!(currentState, { type: actionConstant, payload: 4 })
+    currentState = reducer(currentState, { type: actionConstant, payload: 4 })
 
     assert.deepStrictEqual(currentState, {
       incrementBy: 4,

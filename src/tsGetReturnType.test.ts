@@ -9,8 +9,7 @@ describe('tsGetReturnType', () => {
     // We can't directly `assert` something here, because we are checking types.
     // So, if the TypeScript compiler lets us continue, the types are good.
     try {
-      // tslint:disable-next-line:no-unused-expression
-      type.foo
+      type.foo.toLowerCase()
     // tslint:disable-next-line:no-empty
     } catch (err) { }
 
@@ -23,8 +22,7 @@ describe('tsGetReturnType', () => {
     // We can't directly `assert` something here, because we are checking types.
     // So, if the TypeScript compiler lets us continue, the types are good.
     try {
-      // tslint:disable-next-line:no-unused-expression
-      type.foo
+      type.foo.toLowerCase()
     // tslint:disable-next-line:no-empty
     } catch (err) { }
 
