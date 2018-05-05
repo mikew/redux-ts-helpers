@@ -1,6 +1,10 @@
 {
   "name": "redux-ts-helpers",
   "version": "1.0.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SkySquirrel/redux-async-payload.git"
+  },
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
