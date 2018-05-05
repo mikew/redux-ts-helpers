@@ -16,6 +16,7 @@
     "@types/node": "^10.0.4",
     "mocha": "^5.1.1",
     "redux": "^4.0.0",
+    "redux-async-payload": "^1.0.8",
     "ts-node": "^6.0.2",
     "tslint": "^5.10.0",
     "tslint-config-sst": "^1.0.2",

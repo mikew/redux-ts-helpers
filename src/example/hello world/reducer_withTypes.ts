@@ -8,7 +8,7 @@ import * as actions from './actions'
 
 export const initialState = {
   currentValue: 0,
-  incrementBy: 0,
+  incrementBy: 1,
   promiseResult: '',
   asyncResult: '',
 }
@@ -49,7 +49,7 @@ export const reducer = createReducer(initialState, {
 
     return {
       ...state,
-      promiseResult: payload.name,
+      asyncResult: payload.name,
     }
   },
 })
