@@ -4,7 +4,9 @@ tsconfig.json
 test/
 *.test.js
 *.test.js.map
+*.js.map
 *.test.d.ts
 src/
 script/
 lib/test/
+lib/example/
