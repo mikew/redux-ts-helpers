@@ -10,3 +10,4 @@ src/
 script/
 lib/test/
 lib/example/
+prettier.config.js
