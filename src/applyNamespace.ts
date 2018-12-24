@@ -5,12 +5,7 @@ export interface ActionConstantMap {
 export type NamespacedMap<T> = { [key in keyof T]: string }
 
 /**
- * Apply a namespace to each item in actionConstants.
- * @export
- * @template T
- * @param {string} namespace
- * @param {T} actionConstants
- * @returns {NamespacedMap<T>}
+ * Apply a namespace to each key in `actionConstants`.
  */
 export default function applyNamespace<T extends ActionConstantMap>(
   namespace: string,
