@@ -1,12 +1,7 @@
-import { Reducer } from 'redux'
+import { AnyAction, Reducer } from 'redux'
 
 export interface HandlerMap<T> {
-  [actionName: string]: (state: T, action: {
-    type: string
-    payload: any
-    // tslint:disable-next-line:trailing-comma
-    meta?: any
-  }) => T
+  [actionName: string]: (state: T, action: AnyAction) => T
 }
 
 /**
@@ -15,8 +10,8 @@ export interface HandlerMap<T> {
 export default function createReducer<T>(
   initialState: T,
   handlers: HandlerMap<T>,
-): Reducer<T, { type: string, payload: any, meta?: any }> {
-  return (state: T = initialState, action: { type: string, payload: any, meta?: any }) => {
+): Reducer<T> {
+  return (state: T = initialState, action) => {
     if (!handlers[action.type]) {
       return state
     }

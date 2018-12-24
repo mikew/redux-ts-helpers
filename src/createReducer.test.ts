@@ -1,4 +1,5 @@
 import * as assert from 'assert'
+
 import createReducer from './createReducer'
 
 interface State {

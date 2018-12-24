@@ -33,6 +33,7 @@ export const FILTER = 'USERS_FILTER'
 export const UPDATE = 'USERS_UPDATE'
 export const DELETE = 'USERS_DELETE'
 ```
+
 </td>
   </tr>
 </table>
@@ -57,6 +58,7 @@ This function takes two arguments: `payload` and `meta`.
 export const increment = createAction(constants.increment)
 export const setIncrementBy = createAction<number>(constants.setIncrementBy)
 ```
+
 </td>
     <td>
 
@@ -77,6 +79,7 @@ export const setIncrementBy: ActionCreator<SetIncrementBy> = (n: number) => ({
   payload: n,
 })
 ```
+
 </td>
   </tr>
 </table>
@@ -163,95 +166,8 @@ export const reducer: Reducer<State> = (state = initialState, action) => {
   }
 }
 ```
+
 </td>
   </tr>
 
 </table>
-
-## Utils
-
-### PromiseType<T>
-
-Like `ReturnType` from TypeScript, this will get you the `T` in `Promise<T>`:
-
-```typescript
-const promise = Promise.resolve('hello world')
-const typed = foo as PromiseType<Promise<string>>
-// string
-```
-
-### AsyncReturnType<T>
-
-Like `ReturnType` and `PromiseType` combined, this gets `T` in `(...args:
-any[]) => Promise<T>`:
-
-```typescript
-async function someApiCall() {
-  return 'hello world'
-}
-
-const typed = foo as AsyncReturnType<typeof someApiCall>
-// string
-```
-
----
-
-Having `ReturnType`, `AsyncReturnType`, and `PromiseType` at the type-system
-level is nice because it adds no overhead. These functional helpers below
-were added before [TypeScript gained the `infer`
-keyword](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types)
-and should generally be avoided.
-
-### tsGetAsyncReturnType(fn, arg?)
-
-`tsGetAsyncReturnType` can get the return type of an async function. You can also pass a second argument and it will be cast to the async return type:
-
-```typescript
-async function example() {
-  return { foo: 'bar' }
-}
-
-const asyncReturnType = tsGetAsyncReturnType(example)
-const typed = foo as typeof asyncReturnType
-
-// or ...
-
-const typed = tsGetAsyncReturnType(example, foo)
-```
-
-### tsGetReturnType(fn, arg?)
-
-> Note: TypeScript 2.8 has direct support for this via `ReturnType`.
-
-`tsGetReturnType` can get the return type of a function. You can also pass a
-second argument and it will be cast to the return type:
-
-```typescript
-function example() {
-  return { foo: 'bar' }
-}
-
-const returnType = tsGetReturnType(example)
-const typed = foo as typeof returnType
-typed.foo // 'string'
-
-// or ...
-
-const typed = tsGetReturnType(example, foo)
-typed.foo // 'string'
-```
-
-### tsGetPromiseType(promise, arg?)
-
-`tsGetPromiseType` can get the resolved type of a Promise. It's useful when
-using an async redux library, when you have access to something that is
-`Promise<T>` and you just want to know `T`.
-
-```typescript
-async function example() {
-  return { foo: 'bar' }
-}
-
-const typed = tsGetPromiseType(example)
-typed.foo // 'string'
-```

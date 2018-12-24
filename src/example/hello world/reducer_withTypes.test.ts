@@ -1,7 +1,6 @@
+import * as assert from 'assert'
 import { applyMiddleware, createStore, Store } from 'redux'
 import reduxAsyncPayload from 'redux-async-payload'
-
-import * as assert from 'assert'
 
 import * as actions from './actions'
 import * as reducer from './reducer_withTypes'

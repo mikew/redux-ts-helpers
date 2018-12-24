@@ -1,4 +1,5 @@
 import * as assert from 'assert'
+
 import applyNamespace from './applyNamespace'
 
 describe('applyNamespace', () => {

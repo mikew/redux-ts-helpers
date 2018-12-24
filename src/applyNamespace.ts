@@ -2,9 +2,7 @@ export interface ActionConstantMap {
   [key: string]: 0
 }
 
-export type NamespacedMap<T> = {
-  [key in keyof T]: string
-}
+export type NamespacedMap<T> = { [key in keyof T]: string }
 
 /**
  * Apply a namespace to each item in actionConstants.

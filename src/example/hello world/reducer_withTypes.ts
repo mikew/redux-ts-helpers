@@ -1,8 +1,6 @@
-import {
-  AsyncReturnType,
-  createReducer,
-  PromiseType,
-} from '../../index'
+import { ActionSuccessType } from 'redux-async-payload'
+
+import { createReducer } from '../../index'
 
 import * as actions from './actions'
 
@@ -17,12 +15,10 @@ export const reducer = createReducer(initialState, {
   [actions.constants.setIncrementBy]: (
     state,
     action: ReturnType<typeof actions.setIncrementBy>,
-  ) => {
-    return {
-      ...state,
-      incrementBy: action.payload,
-    }
-  },
+  ) => ({
+    ...state,
+    incrementBy: action.payload,
+  }),
 
   [actions.constants.increment]: (state) => ({
     ...state,
@@ -31,25 +27,17 @@ export const reducer = createReducer(initialState, {
 
   [`${actions.constants.promiseAction}/success`]: (
     state,
-    action: ReturnType<typeof actions.promiseAction>,
-  ) => {
-    const payload = action.payload as any as PromiseType<typeof action.payload>
-
-    return {
-      ...state,
-      promiseResult: payload.name,
-    }
-  },
+    action: ActionSuccessType<typeof actions.promiseAction>,
+  ) => ({
+    ...state,
+    promiseResult: action.payload.name,
+  }),
 
   [`${actions.constants.asyncAction}/success`]: (
     state,
-    action: ReturnType<typeof actions.asyncAction>,
-  ) => {
-    const payload = action.payload as any as AsyncReturnType<typeof action.payload>
-
-    return {
-      ...state,
-      asyncResult: payload.name,
-    }
-  },
+    action: ActionSuccessType<typeof actions.asyncAction>,
+  ) => ({
+    ...state,
+    asyncResult: action.payload.name,
+  }),
 })

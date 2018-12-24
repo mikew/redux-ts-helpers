@@ -1,7 +1,4 @@
-import {
-  applyNamespace,
-  createAction,
-} from '../../index'
+import { applyNamespace, createAction } from '../../index'
 
 export const constants = applyNamespace('example', {
   increment: 0,
@@ -16,6 +13,7 @@ export const setIncrementBy = createAction<number>(constants.setIncrementBy)
 export const promiseAction = (id: number) => ({
   type: constants.promiseAction,
   payload: someApiCall(id),
+  meta: id,
 })
 
 export const asyncAction = (id: number) => ({
