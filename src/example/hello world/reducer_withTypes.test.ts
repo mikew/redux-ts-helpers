@@ -13,7 +13,7 @@ describe('example reducer_withTypes', () => {
   })
 
   it('handles actions without an argument', () => {
-    store.dispatch(actions.increment(null))
+    store.dispatch(actions.increment())
     const state = store.getState()
 
     assert.strictEqual(state.currentValue, 1)
