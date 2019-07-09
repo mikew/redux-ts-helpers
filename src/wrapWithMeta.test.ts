@@ -33,4 +33,16 @@ describe('wrapWithMeta', () => {
       },
     })
   })
+
+  it('works when given metaCreator without payload', () => {
+    const action = createAction('action')
+    const actionWithMeta = wrapWithMeta(action, () => 'some meta')
+    const actual = actionWithMeta()
+
+    assert.deepStrictEqual(actual, {
+      type: 'action',
+      payload: undefined,
+      meta: 'some meta',
+    })
+  })
 })

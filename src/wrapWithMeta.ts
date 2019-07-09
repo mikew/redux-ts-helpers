@@ -3,6 +3,11 @@ interface WrapWithMeta {
     actionCreator: (payload: TPayload) => { type: string; payload: TPayload },
   ): (payload: TPayload) => { type: string; payload: TPayload; meta: TPayload }
 
+  <TMeta>(
+    actionCreator: () => { type: string },
+    metaBuilder: () => TMeta,
+  ): () => { type: string; meta: TMeta }
+
   <TPayload, TMeta>(
     actionCreator: (payload: TPayload) => { type: string; payload: TPayload },
     metaBuilder: (payload: TPayload) => TMeta,
@@ -10,7 +15,7 @@ interface WrapWithMeta {
 }
 
 const wrapWithMeta: WrapWithMeta = (actionCreator: any, metaBuilder?: any) => (
-  payload: any,
+  payload?: any,
 ) => {
   return {
     ...actionCreator(payload),
