@@ -168,3 +168,52 @@ export const reducer: Reducer<State> = (state = initialState, action) => {
   </tr>
 
 </table>
+
+## Action meta
+
+You can use `wrapWithMeta` to generate an action creator that populates the
+`meta` property.
+
+```ts
+const deleteAccount = wrapWithMeta(
+  createAction(constants.deleteAccount),
+  () => ({
+    analytics: {
+      trackEvent: true,
+    },
+  })
+)
+
+// deleteAccount()
+// {
+//   type: 'deleteAccount',
+//   payload: undefined,
+//   meta: {
+//     analytics: {
+//       trackEvent: true,
+//     }
+//   }
+// }
+
+const removeUser = wrapWithMeta(
+  createAction<number>(constants.removeUser),
+  (payload) => ({
+    analytics: {
+      trackEvent: true,
+      id: payload,
+    },
+  })
+)
+
+// removeUser(1234)
+// {
+//   type: 'removeUser',
+//   payload: 1234,
+//   meta: {
+//     analytics: {
+//       trackEvent: true,
+//       id: 1234,
+//     }
+//   }
+// }
+```
