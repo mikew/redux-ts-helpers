@@ -5,9 +5,8 @@ import wrapWithMeta from './wrapWithMeta'
 
 describe('wrapWithMeta', () => {
   it('sets meta to payload if metaCreator not given', () => {
-    const action = createAction<number>('action')
-    const actionWithMeta = wrapWithMeta(action)
-    const actual = actionWithMeta(42)
+    const action = wrapWithMeta(createAction<number>('action'))
+    const actual = action(42)
 
     assert.deepStrictEqual(actual, {
       type: 'action',
@@ -17,12 +16,11 @@ describe('wrapWithMeta', () => {
   })
 
   it('uses metaCreator to build meta based off payload', () => {
-    const action = createAction<number>('action')
-    const actionWithMeta = wrapWithMeta(action, (payload) => ({
+    const action = wrapWithMeta(createAction<number>('action'), (payload) => ({
       raw: payload,
       string: payload.toString(),
     }))
-    const actual = actionWithMeta(42)
+    const actual = action(42)
 
     assert.deepStrictEqual(actual, {
       type: 'action',
@@ -35,9 +33,8 @@ describe('wrapWithMeta', () => {
   })
 
   it('works when given metaCreator without payload', () => {
-    const action = createAction('action')
-    const actionWithMeta = wrapWithMeta(action, () => 'some meta')
-    const actual = actionWithMeta()
+    const action = wrapWithMeta(createAction('action'), () => 'some meta')
+    const actual = action()
 
     assert.deepStrictEqual(actual, {
       type: 'action',
