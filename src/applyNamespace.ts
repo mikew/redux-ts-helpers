@@ -10,10 +10,10 @@ export type NamespacedMap<T> = { [key in keyof T]: string }
 export default function applyNamespace<T extends ActionConstantMap>(
   namespace: string,
   actionConstants: T,
-): NamespacedMap<T> {
+) {
   const constantMap: NamespacedMap<T> = {} as any
 
-  Object.keys(actionConstants).forEach((x) => {
+  Object.keys(actionConstants).forEach((x: keyof T) => {
     constantMap[x] = `${namespace}/${x}`
   })
 
