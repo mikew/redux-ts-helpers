@@ -1,17 +1,25 @@
 interface WrapWithMeta {
-  <TPayload>(
-    actionCreator: (payload: TPayload) => { type: string; payload: TPayload },
-  ): (payload: TPayload) => { type: string; payload: TPayload; meta: TPayload }
+  <TPayload, TPayloadReturn>(
+    actionCreator: (
+      payload: TPayload,
+    ) => { type: string; payload: TPayloadReturn },
+  ): (
+    payload: TPayload,
+  ) => { type: string; payload: TPayloadReturn; meta: TPayload }
 
   <TMeta>(
     actionCreator: () => { type: string },
     metaBuilder: () => TMeta,
   ): () => { type: string; meta: TMeta }
 
-  <TPayload, TMeta>(
-    actionCreator: (payload: TPayload) => { type: string; payload: TPayload },
+  <TPayload, TPayloadReturn, TMeta>(
+    actionCreator: (
+      payload: TPayload,
+    ) => { type: string; payload: TPayloadReturn },
     metaBuilder: (payload: TPayload) => TMeta,
-  ): (payload: TPayload) => { type: string; payload: TPayload; meta: TMeta }
+  ): (
+    payload: TPayload,
+  ) => { type: string; payload: TPayloadReturn; meta: TMeta }
 }
 
 const wrapWithMeta: WrapWithMeta = (actionCreator: any, metaBuilder?: any) => (
