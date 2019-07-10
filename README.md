@@ -38,7 +38,7 @@ export const DELETE = 'USERS_DELETE'
   </tr>
 </table>
 
-### Actions
+## Actions
 
 `createAction` takes one argument: the action constant. You get back a
 function that acts as any action creator.
@@ -84,13 +84,13 @@ export const setIncrementBy: ActionCreator<SetIncrementBy> = (n: number) => ({
   </tr>
 </table>
 
-### Reducers
+## Reducers
 
 `createReducer` builds a reducer for you. No more switch statements, you pass
 it an object.
 
-Use `tsGetReturnType` and `typeof` to get the type of a function's return
-value without having to know the interface beforehand.
+Use `ReturnType<T>` to get the type of a function's return value without
+having to know the interface beforehand.
 
 <table>
   <tr>
@@ -110,21 +110,18 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
-  [actions.constants.increment]: (state, action) => {
-    return {
-      ...state,
-      currentNumber: state.currentNumber + state.incrementBy,
-    }
-  },
+  [actions.constants.increment]: (state, action) => ({
+    ...state,
+    currentNumber: state.currentNumber + state.incrementBy,
+  }),
 
-  [actions.constants.setIncrementBy]: (state, action) => {
-    const actionTyped = tsGetReturnType(actions.setIncrementBy, action)
-
-    return {
-      ...state,
-      incrementBy: actionTyped.payload,
-    }
-  },
+  [actions.constants.setIncrementBy]: (
+    state,
+    action: ReturnType<typeof actions.setIncrementBy>,
+  ) => ({
+    ...state,
+    incrementBy: actionTyped.payload,
+  }),
 })
 ```
 
