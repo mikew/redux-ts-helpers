@@ -106,7 +106,7 @@ import * as actions from './actions'
 
 const initialState = {
   currentNumber: 0,
-  incrementBy: 0,
+  incrementBy: 1,
 }
 
 export default createReducer(initialState, {
