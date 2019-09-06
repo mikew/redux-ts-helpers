@@ -1,12 +1,4 @@
 interface WrapWithMeta {
-  <TPayload, TPayloadReturn>(
-    actionCreator: (
-      payload: TPayload,
-    ) => { type: string; payload: TPayloadReturn },
-  ): (
-    payload: TPayload,
-  ) => { type: string; payload: TPayloadReturn; meta: TPayload }
-
   <TMeta>(
     actionCreator: () => { type: string },
     metaBuilder: () => TMeta,
