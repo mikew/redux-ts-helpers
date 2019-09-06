@@ -31,4 +31,33 @@ describe('wrapWithMeta', () => {
       meta: 'some meta',
     })
   })
+
+  it('works with action creators that have multiple arguments', () => {
+    const action = wrapWithMeta(
+      (arg1: string, arg2: number) => ({
+        type: 'action',
+        payload: {
+          arg1,
+          arg2,
+        },
+      }),
+      (arg1, arg2) => ({
+        arg1,
+        arg2,
+      }),
+    )
+    const actual = action('hello world', 42)
+
+    assert.deepStrictEqual(actual, {
+      type: 'action',
+      payload: {
+        arg1: 'hello world',
+        arg2: 42,
+      },
+      meta: {
+        arg1: 'hello world',
+        arg2: 42,
+      },
+    })
+  })
 })

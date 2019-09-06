@@ -4,22 +4,18 @@ interface WrapWithMeta {
     metaBuilder: () => TMeta,
   ): () => { type: string; meta: TMeta }
 
-  <TPayload, TPayloadReturn, TMeta>(
-    actionCreator: (
-      payload: TPayload,
-    ) => { type: string; payload: TPayloadReturn },
-    metaBuilder: (payload: TPayload) => TMeta,
-  ): (
-    payload: TPayload,
-  ) => { type: string; payload: TPayloadReturn; meta: TMeta }
+  <ActionFn extends (...args: any) => any, TMeta>(
+    actionCreator: ActionFn,
+    metaBuilder: (...args: Parameters<ActionFn>) => TMeta,
+  ): (...args: Parameters<ActionFn>) => ReturnType<ActionFn> & TMeta
 }
 
 const wrapWithMeta: WrapWithMeta = (actionCreator: any, metaBuilder?: any) => (
-  payload?: any,
+  ...args: any
 ) => {
   return {
-    ...actionCreator(payload),
-    meta: metaBuilder ? metaBuilder(payload) : payload,
+    ...actionCreator(...args),
+    meta: metaBuilder ? metaBuilder(...args) : args,
   }
 }
 
