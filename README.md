@@ -40,10 +40,22 @@ export const DELETE = 'USERS_DELETE'
 
 ## Actions
 
-`createAction` takes one argument: the action constant. You get back a
-function that acts as any action creator.
+`createAction` has multiple signatures:
 
-This function takes two arguments: `payload` and `meta`.
+1. ```ts
+   const action = createAction('action')
+   ```
+   An action creator without a payload.
+1. ```ts
+   const action = createAction<number>('action')
+   ```
+   An action creator with a payload of type `number`.
+1. ```ts
+   const action = createAction('action', (arg1: string, arg2: number) => {
+     /*...*/
+   })
+   ```
+   An action creator with a complex payload. Arguments for the action are read from the given payload function.
 
 <table>
   <tr>
@@ -57,6 +69,10 @@ This function takes two arguments: `payload` and `meta`.
 ```typescript
 export const increment = createAction(constants.increment)
 export const setIncrementBy = createAction<number>(constants.setIncrementBy)
+export const safeSetIncrementBy = createAction(
+  constants.setIncrementBy,
+  (n: number) => (n > 10 ? 10 : n),
+)
 ```
 
 </td>
@@ -77,6 +93,17 @@ export interface SetIncrementBy {
 export const setIncrementBy: ActionCreator<SetIncrementBy> = (n: number) => ({
   type: 'SET_INCREMENT_BY',
   payload: n,
+})
+
+export interface SafeSetIncrementBy {
+  type: 'SET_INCREMENT_BY'
+  payload: number
+}
+export const safeSetIncrementBy: ActionCreator<SafeSetIncrementBy> = (
+  n: number,
+) => ({
+  type: 'SET_INCREMENT_BY',
+  payload: n > 10 ? 10 : n,
 })
 ```
 
@@ -181,7 +208,7 @@ const deleteAccount = wrapWithMeta(
     analytics: {
       trackEvent: true,
     },
-  })
+  }),
 )
 
 // deleteAccount()
@@ -202,7 +229,7 @@ const removeUser = wrapWithMeta(
       trackEvent: true,
       id: payload,
     },
-  })
+  }),
 )
 
 // removeUser(1234)
