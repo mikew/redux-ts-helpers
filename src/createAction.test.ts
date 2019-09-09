@@ -25,4 +25,15 @@ describe('createAction', () => {
       },
     })
   })
+
+  it('supports complex actions', () => {
+    const action = createAction('action', (arg: number) =>
+      arg > 10 ? 10 : arg,
+    )
+    const actual = action(42)
+    assert.deepStrictEqual(actual, {
+      type: 'action',
+      payload: 10,
+    })
+  })
 })
