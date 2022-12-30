@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^10.14.12",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "prettier": "^1.18.2",
     "redux": "^4.0.3",
     "redux-async-payload": "^2.0.0",
